@@ -3,7 +3,8 @@ How far can the roots of a tree expand before they interfer to with another tree
 SAS/WPS/R: How far can the roots of a tree expand before they interfer to with another tree.
 
 my high res input plot of data
-https://www.dropbox.com/s/1rdnbt0z9x8y5vp/deldir.pdf?dl=0
+https://tinyurl.com/yb93aptx
+https://github.com/rogerjdeangelis/utl_how_far_can_the_roots_of_a_tree_expand_before_they_interfer_to_with_another_tree/blob/master/utl_how_far_can_the_roots_of_a_tree_expand_before_they_interfer_to_with_another_tree.pdf
 
 Sources
 https://goo.gl/rULaF8
@@ -64,7 +65,7 @@ micro degrees
 WANT
 ====
 
-AREA_INFLUENCE=200  micro degrees squared
+AREA_INFLUENCE=200  micro degrees squared  (outside triangle)
 
 Area of influence for Tree located at longitude=100  latitude=40
 is AREA_INFLUENCE=200  micro degrees squared
@@ -131,6 +132,7 @@ format latitude_degrees logitude_degrees 11.6;
 run;quit;
 
 
+options ls=171;
 %utl_submit_wps64('
 options set=R_HOME "C:/Program Files/R/R-3.3.2";
 libname wrk "%sysfunc(pathname(work))";
@@ -144,6 +146,9 @@ df<-read_sas("d:/sd1/have.sas7bdat");
 df;
 voronoi <- deldir(df$LONG, df$LAT);
 area<-voronoi$summary;
+area;
+endsubmit;
+run;quit;
 ');
 
 * If you want the plot;
@@ -160,7 +165,7 @@ df<-read_sas("d:/sd1/have.sas7bdat");
 df;
 voronoi <- deldir(df$LONG, df$LAT);
 area<-voronoi$summary;
-pdf("d:/pdf/utl_treedeldir.pdf");
+pdf("d:/pdf/utl_how_far_can_the_roots_of_a_tree_expand_before_they_interfer_to_with_another_tree.pdf");
 ggplot(data=df, aes(x=LONG,y=LAT)) +
   geom_segment(
     aes(x = x1, y = y1, xend = x2, yend = y2),
@@ -240,5 +245,7 @@ NOTE: Data set "WRK.area" has 5 observation(s) and 9 variable(s)
 NOTE: Procedure r step took :
       real time : 1.210
       cpu time  : 0.015
+
+
 
 
